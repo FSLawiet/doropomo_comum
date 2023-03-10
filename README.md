@@ -4,7 +4,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Creative Commons Attribution-ShareAlike 4.0 International][license-shield]][license-url]
+[![CC-BY-SA 4.0][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <br />
@@ -25,6 +25,7 @@ Um temporizador doropomo para anti-produtividade
     ·
     <a href="https://github.com/FSLawiet/doropomo_comum/issues">Request Feature</a>
 </p>
+</div>
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -72,10 +73,10 @@ Use the `BLANK_README.md` to get started.
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 - [![Tauri][Tauri.js]][Tauri-url]
-- [![Quasar][React.js]][React-url]
+- [![Quasar][Quasar.js]][Quasar-url]
 - [![Vue][Vue.js]][Vue-url]
-- [![Apache Cordova][Svelte.dev]][Svelte-url]
-- [![Supabase][Laravel.com]][Laravel-url]
+- [![Apache Cordova][Cordova]][Cordova-url]
+- [![Supabase][Supabase-ho]][Supabase-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -132,5 +133,13 @@ See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/FSLawiet
 [product-screen]: .github/app-screen.png
-[Tauri.js]: https://img.shields.io/badge/tauri-000000?style=for-the-badge&logo=tauri&logoColor=white
+[Tauri.js]: https://img.shields.io/badge/tauri-242526?style=for-the-badge&logo=tauri&logoColor=white
 [Tauri-url]: https://tauri.app/
+[Quasar.js]: https://img.shields.io/badge/quasar-1976d2?style=for-the-badge&logo=quasar&logoColor=4FC08D
+[Quasar-url]: https://quasar.dev
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Cordova]: https://img.shields.io/badge/Cordova-4CC2E4?style=for-the-badge&logo=apachecordova&logoColor=4FC08D
+[Cordova-url]: https://cordova.apache.org/
+[Supabase-ho]: https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=4FC08D
+[Supabase-url]: https://supabase.com/
