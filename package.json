@@ -5,6 +5,7 @@
   "productName": "Doropomo Comum",
   "author": "Fausto André <fslawliet@gmail.com>",
   "private": true,
+  "license": "CC-BY-SA 4.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,css,html,md,json}\" --ignore-path .gitignore",
