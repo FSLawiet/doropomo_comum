@@ -233,7 +233,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [issues-shield]: https://img.shields.io/github/issues/FSLawiet/doropomo_comum.svg?style=for-the-badge
 [issues-url]: https://github.com/FSLawiet/doropomo_comum/issues
 [license-shield]: https://img.shields.io/github/license/FSLawiet/doropomo_comum.svg?style=for-the-badge
-[license-url]: https://github.com/FSLawiet/doropomo_comum/blob/master/LICENSE.txt
+[license-url]: https://github.com/FSLawiet/doropomo_comum/blob/master/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/FSLawiet
 [product-screen]: .github/app-screen.png
