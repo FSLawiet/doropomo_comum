@@ -73,11 +73,16 @@ Use the `BLANK_README.md` to get started.
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-- [![Tauri][Tauri.js]][Tauri-url]
-- [![Quasar][Quasar.js]][Quasar-url]
-- [![Vue][Vue.js]][Vue-url]
 - [![Apache Cordova][Cordova]][Cordova-url]
+- Cypress
+- [![Quasar][Quasar.js]][Quasar-url]
+- [![Storybook][Storybook.js]][Storybook-url]
 - [![Supabase][Supabase-ho]][Supabase-url]
+- SQLite
+- [![Tauri][Tauri.js]][Tauri-url]
+- Vite
+- Vitest
+- [![Vue][Vue.js]][Vue-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -239,11 +244,13 @@ Use this space to list resources you find helpful and would like to give credit 
 [product-screen]: .github/app-screen.png
 [Tauri.js]: https://img.shields.io/badge/tauri-242526?style=for-the-badge&logo=tauri&logoColor=white
 [Tauri-url]: https://tauri.app/
-[Quasar.js]: https://img.shields.io/badge/quasar-1976d2?style=for-the-badge&logo=quasar&logoColor=4FC08D
+[Quasar.js]: https://img.shields.io/badge/quasar-1976d2?style=for-the-badge&logo=quasar&logoColor=white
 [Quasar-url]: https://quasar.dev
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://vuejs.org/
-[Cordova]: https://img.shields.io/badge/Cordova-4CC2E4?style=for-the-badge&logo=apachecordova&logoColor=4FC08D
+[Cordova]: https://img.shields.io/badge/Cordova-4CC2E4?style=for-the-badge&logo=apachecordova&logoColor=CCCCCC
 [Cordova-url]: https://cordova.apache.org/
-[Supabase-ho]: https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=4FC08D
+[Supabase-ho]: https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=CCCCCC
 [Supabase-url]: https://supabase.com/
+[Storybook.js]: https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white
+[Storybook-url]: https://storybook.js.org/
