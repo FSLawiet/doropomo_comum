@@ -27,7 +27,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ['axios', 'supabase'],
+    boot: ['addressbar-color', 'axios', 'supabase'],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ['app.css'],
@@ -53,7 +53,7 @@ module.exports = configure(function (/* ctx */) {
         node: 'node16',
       },
 
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
@@ -85,7 +85,24 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
-      config: {},
+      config: {
+        notify: {
+          /* look at QuasarConfOptions from the API card */
+        },
+        brand: {
+          primary: '#d10a0a',
+          secondary: '#26A69A',
+          accent: '#9C27B0',
+
+          dark: '#1d1d1d',
+          'dark-page': '#121212',
+
+          positive: '#21BA45',
+          negative: '#C10015',
+          info: '#31CCEC',
+          warning: '#F2C037',
+        },
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       lang: 'pt-BR', // Quasar language pack
@@ -98,7 +115,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['AddressbarColor', 'Notify'],
     },
 
     // animations: 'all', // --- includes all animations
