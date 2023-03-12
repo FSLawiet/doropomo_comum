@@ -1,8 +1,8 @@
 import { ref } from 'vue';
 import useSupabase from 'boot/supabase';
-import { Provider } from '@supabase/supabase-js';
+import { Provider, User } from '@supabase/supabase-js';
 
-const user = ref(null);
+const user = ref<User | null>(null);
 
 export const useAuthUser = () => {
   const { supabase } = useSupabase();
@@ -49,7 +49,7 @@ export const useAuthUser = () => {
       password,
       options: {
         data: meta,
-        emailRedirectTo: `${window.location.origin}/me?fromEmail=registrationConfirmation`,
+        emailRedirectTo: `${window.location.origin}/perfil?fromEmail=registrationConfirmation`,
       },
     });
     if (error) throw error;
