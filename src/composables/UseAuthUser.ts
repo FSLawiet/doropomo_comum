@@ -32,7 +32,7 @@ export const useAuthUser = () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
-  const isLoggedInIn = async () => {
+  const isLoggedIn = async () => {
     return !!user.value;
   };
 
@@ -73,7 +73,7 @@ export const useAuthUser = () => {
     login,
     loginWithSocialProvider,
     logout,
-    isLoggedInIn,
+    isLoggedIn,
     register,
     update,
     sendPasswordResetEmail,

@@ -37,6 +37,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/PerfilPage.vue'),
       },
     ],
+    meta: { requiresAuth: true },
   },
 
   // Always leave this as last one,
