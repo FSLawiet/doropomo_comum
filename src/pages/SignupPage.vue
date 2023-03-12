@@ -4,10 +4,16 @@
       <p class="col-12 text-h5 text-center">Sign Up</p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
         <q-input label="Nome" v-model="form.name" outlined rounded />
-        <q-input label="E-mail" v-model="form.email" outlined rounded />
+        <q-input
+          label="E-mail"
+          type="password"
+          v-model="form.email"
+          outlined
+          rounded
+        />
         <q-input label="Password" v-model="form.password" outlined rounded />
         <q-btn
-          label="Login"
+          label="Cadastrar"
           color="primary"
           class="full-width"
           outline

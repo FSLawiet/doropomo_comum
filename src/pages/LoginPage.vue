@@ -4,7 +4,7 @@
       <p class="col-12 text-h5 text-center">Login</p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
         <q-input label="E-mail" v-model="form.email" outlined rounded />
-        <q-input label="Password" v-model="form.password" outlined rounded />
+        <q-input label="Password" type="password" v-model="form.password" outlined rounded />
         <q-btn
           label="Login"
           color="primary"
