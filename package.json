@@ -13,7 +13,9 @@
     "dev": "quasar dev --modern",
     "version": "auto-changelog -p -l false -u --breaking-pattern 'BREAKING CHANGE:' --release-summary && git add CHANGELOG.md",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "docs:dev": "start-storybook --docs --no-manager-cache",
+    "docs:build": "build-storybook --docs -o docs"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
