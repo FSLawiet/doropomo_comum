@@ -6,7 +6,8 @@
 [![Issues][issues-shield]][issues-url]
 [![CC-BY-SA 4.0][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3cc3acd3-e2f6-456c-ad3f-ee49f4817cbb/deploy-status)](https://app.netlify.com/sites/doropomo-comum/deploys)
+[![Netlify Status](https://img.shields.io/netlify/3cc3acd3-e2f6-456c-ad3f-ee49f4817cbb?logo=netlify&style=for-the-badge)](https://app.netlify.com/sites/doropomo-comum/deploys)
+
 <br />
 
 <div align="center">
