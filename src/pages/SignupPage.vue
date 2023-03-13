@@ -3,15 +3,41 @@
     <q-form class="row justify-center" @submit.prevent="handleSignUp">
       <p class="col-12 text-h5 text-center">Sign Up</p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-        <q-input label="Nome" v-model="form.name" outlined rounded />
+        <q-input
+          label="Nome"
+          v-model="form.name"
+          outlined
+          rounded
+          lazy-rules
+          :rules="[
+            (val) =>
+              (val && val.length > 0) || 'Por favor, informe o seu nome.',
+          ]"
+        />
         <q-input
           label="E-mail"
-          type="password"
+          type="email"
           v-model="form.email"
           outlined
           rounded
+          lazy-rules
+          :rules="[
+            (val) =>
+              (val && val.length > 0) || 'Por favor, informe o seu email.',
+          ]"
         />
-        <q-input label="Password" v-model="form.password" outlined rounded />
+        <q-input
+          label="Password"
+          type="password"
+          v-model="form.password"
+          outlined
+          rounded
+          lazy-rules
+          :rules="[
+            (val) =>
+              (val && val.length >= 6) || 'Por favor, informe a sua senha.',
+          ]"
+        />
         <div class="full-width q-pt-md q-gutter-y-sm">
           <q-btn
             label="Cadastrar"

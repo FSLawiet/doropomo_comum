@@ -3,13 +3,28 @@
     <q-form class="row justify-center" @submit.prevent="handleLogin">
       <p class="col-12 text-h5 text-center">Login</p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-        <q-input label="E-mail" v-model="form.email" outlined rounded />
         <q-input
-          label="Password"
+          label="E-mail"
+          type="email"
+          v-model="form.email"
+          outlined
+          rounded
+          lazy-rules
+          :rules="[
+            (val) =>
+              (val && val.length > 0) || 'Por favor, digie o seu e-mail.',
+          ]"
+        />
+        <q-input
+          label="Senha"
           type="password"
           v-model="form.password"
           outlined
           rounded
+          lazy-rules
+          :rules="[
+            (val) => (val && val.length > 0) || 'Por favor, digie a sua senha.',
+          ]"
         />
         <div class="full-width q-pt-md">
           <q-btn

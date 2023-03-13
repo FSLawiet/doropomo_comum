@@ -9,6 +9,12 @@
           type="password"
           outlined
           rounded
+          lazy-rules
+          :rules="[
+            (val) =>
+              (val && val.length >= 6) ||
+              'Por favor, informe a sua nova senha.',
+          ]"
         />
         <div class="full-width q-pt-md q-gutter-y-sm">
           <q-btn
@@ -39,12 +45,18 @@ export default defineComponent({
     const newPassword = ref('');
 
     const handleRecoverPassword = async () => {
-      await resetPassword(newPassword.value);
-      Notify.create({
-        message: 'Senha redefinida com sucesso!',
-        type: 'positive',
-      });
-      router.replace({ name: 'perfil' });
+      try {
+        await resetPassword(newPassword.value);
+        Notify.create({
+          message: 'Senha redefinida com sucesso!',
+          type: 'positive',
+        });
+        router.replace({ name: 'perfil' });
+      } catch (error) {
+        let message = 'Erro desconhecido!';
+        if (error instanceof Error) message = error.message;
+        Notify.create({ message, type: 'negative' });
+      }
     };
 
     return { newPassword, handleRecoverPassword };
