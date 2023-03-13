@@ -14,14 +14,14 @@
   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
-<h3 align="center">Doropomo Comum (doropomo_comum)</h3>
+<h3 align="center">Doropomo Comum</h3>
 <p align="center">
 Um temporizador doropomo para anti-produtividade
 <br />
     <a href="https://github.com/FSLawiet/doropomo_comum"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/FSLawiet/doropomo_comum">View Demo</a>
+    <a href="https://doropomo-comum.netlify.app/">View Demo</a>
     ·
     <a href="https://github.com/FSLawiet/doropomo_comum/issues">Report Bug</a>
     ·
@@ -47,6 +47,7 @@ Um temporizador doropomo para anti-produtividade
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#changelog">Changelog</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -198,9 +199,17 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- LICENSE -->
 
+## Changelog
+
+See `CHANGELOG.md` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.md` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
