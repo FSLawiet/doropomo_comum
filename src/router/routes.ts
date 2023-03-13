@@ -16,9 +16,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/SignupPage.vue'),
       },
       {
-        path: 'email-conirmation',
-        name: 'email-conirmation',
+        path: 'email-confirmation',
+        name: 'email-confirmation',
         component: () => import('pages/EmailConfirmation.vue'),
+      },
+      {
+        path: 'reset-password',
+        name: 'reset-password',
+        component: () => import('pages/ResetPassword.vue'),
       },
     ],
   },
@@ -35,6 +40,11 @@ const routes: RouteRecordRaw[] = [
         path: 'perfil',
         name: 'perfil',
         component: () => import('pages/PerfilPage.vue'),
+      },
+      {
+        path: 'recover_password',
+        name: 'recover_password',
+        component: () => import('pages/RecoverPassword.vue'),
       },
     ],
     meta: { requiresAuth: true },

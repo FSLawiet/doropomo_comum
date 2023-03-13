@@ -12,15 +12,26 @@
           rounded
         />
         <q-input label="Password" v-model="form.password" outlined rounded />
-        <q-btn
-          label="Cadastrar"
-          color="primary"
-          class="full-width"
-          outline
-          rounded
-          size="lg"
-          type="submit"
-        />
+        <div class="full-width q-pt-md q-gutter-y-sm">
+          <q-btn
+            label="Cadastrar"
+            color="primary"
+            class="full-width"
+            outline
+            rounded
+            size="lg"
+            type="submit"
+          />
+          <q-btn
+            label="Voltar"
+            color="dark"
+            class="full-width"
+            rounded
+            flat
+            size="lg"
+            :to="{ name: 'login' }"
+          />
+        </div>
       </div>
     </q-form>
   </q-page>
