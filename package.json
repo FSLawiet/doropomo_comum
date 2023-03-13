@@ -11,6 +11,7 @@
     "format": "prettier --write \"**/*.{js,ts,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev --modern",
+    "build": "quasar build --modern",
     "version": "auto-changelog -p -l false -u --breaking-pattern 'BREAKING CHANGE:' --release-summary && git add CHANGELOG.md",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",

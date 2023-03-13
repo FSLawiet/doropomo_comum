@@ -1,0 +1,41 @@
+name: 'Doropomo Comum Dev'
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-spa:
+    name: Fazer o Build do Aplicativo em SPA (Single Page Aplication)
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Instalação de Quasar e repositórios
+        run: |
+          npm i -g @quasar/cli
+          npm i
+      - name: Build do Aplicativo
+        run: quasar build --modern
+      - name: Deploy para o Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './dist/spa'
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Deploy from GitHub Actions'
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
