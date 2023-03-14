@@ -70,10 +70,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted, onUnmounted } from 'vue';
 import { useAuthUser } from 'src/composables/UseAuthUser';
 import { Dialog } from 'quasar';
 import { useRouter } from 'vue-router';
+
+import { useDoropomoStore } from 'stores/doropomoStore';
+
+const store = useDoropomoStore();
+
+onMounted(() => {
+  store.resetTimer();
+});
+
+onUnmounted(() => {
+  store.resetTimer();
+});
 
 export default defineComponent({
   name: 'MainLayout',
