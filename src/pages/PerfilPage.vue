@@ -1,8 +1,8 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <div v-if="user">
+  <q-page class="row items-center justify-center">
+    <div v-if="user" class="column items-center justify-center q-gutter-y-xl">
       <p>Olá {{ user.user_metadata.name }}</p>
-      <div class="flex">
+      <div class="flex items-center justify-center">
         <DoropomoTimer id="rest" title="Rest" />
         <DoropomoTimer id="short" title="Short Work" />
         <DoropomoTimer id="long" title="Long Work" />

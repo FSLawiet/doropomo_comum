@@ -1,6 +1,6 @@
 <template>
   <div className="clock-container">
-    <h1 id="timer-label">{{ getCurrentTimer }}</h1>
+    <p class="text-h3" id="timer-label">{{ getCurrentTimer }}</p>
     <span id="time-left">{{ convertToTime(getClockCount) }}</span>
     <div className="flex">
       <q-btn
