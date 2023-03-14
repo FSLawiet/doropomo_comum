@@ -79,14 +79,6 @@ import { useDoropomoStore } from 'stores/doropomoStore';
 
 const store = useDoropomoStore();
 
-onMounted(() => {
-  store.resetTimer();
-});
-
-onUnmounted(() => {
-  store.resetTimer();
-});
-
 export default defineComponent({
   name: 'MainLayout',
   setup() {
@@ -94,6 +86,14 @@ export default defineComponent({
     const { logout } = useAuthUser();
 
     const leftDrawerOpen = ref(false);
+
+    onMounted(() => {
+      store.resetTimer();
+    });
+
+    onUnmounted(() => {
+      store.resetTimer();
+    });
 
     const handleLogout = async () => {
       Dialog.create({
