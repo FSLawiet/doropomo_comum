@@ -77,14 +77,14 @@ Use the `BLANK_README.md` to get started.
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 - [![Apache Cordova][Cordova]][Cordova-url]
-- Cypress
+- [![Cypress][Cypress.js]][Cypress-url]
 - [![Quasar][Quasar.js]][Quasar-url]
 - [![Storybook][Storybook.js]][Storybook-url]
 - [![Supabase][Supabase-ho]][Supabase-url]
-- SQLite
+- [![SQLite][SQLite-b]][SQLite-url]
 - [![Tauri][Tauri.js]][Tauri-url]
-- Vite
-- Vitest
+- [![Vite][Vite.js]][Vite-url]
+- [![Vitest][Vitest.js]][Vitest-url]
 - [![Vue][Vue.js]][Vue-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -259,9 +259,17 @@ Use this space to list resources you find helpful and would like to give credit 
 [Quasar-url]: https://quasar.dev
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://vuejs.org/
-[Cordova]: https://img.shields.io/badge/Cordova-4CC2E4?style=for-the-badge&logo=apachecordova&logoColor=CCCCCC
+[Cordova]: https://img.shields.io/badge/Cordova-4CC2E4?style=for-the-badge&logo=apachecordova&logoColor=white
 [Cordova-url]: https://cordova.apache.org/
-[Supabase-ho]: https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=CCCCCC
+[Cypress.js]: https://img.shields.io/badge/Cypress-F0FCF8?style=for-the-badge&logo=cypress&logoColor=black
+[Cypress-url]: https://www.cypress.io/
+[SQLite-b]: https://img.shields.io/badge/SQLite-044A64?style=for-the-badge&logo=sqlite&logoColor=white
+[SQLite-url]: https://sqlite.org/
+[Vite.js]: https://img.shields.io/badge/Vite-747BFF?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
+[Vitest.js]: https://img.shields.io/badge/Vitest-6DA13F?style=for-the-badge&logo=vitest&logoColor=white
+[Vitest-url]: https://vitest.dev/
+[Supabase-ho]: https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white
 [Supabase-url]: https://supabase.com/
 [Storybook.js]: https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white
 [Storybook-url]: https://storybook.js.org/

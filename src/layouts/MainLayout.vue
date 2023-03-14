@@ -9,6 +9,12 @@
           </q-avatar>
           Doropomo
         </q-toolbar-title>
+        <q-btn
+          flat
+          :color="$q.dark.isActive ? 'white' : 'dark'"
+          :icon="$q.dark.isActive ? 'light_mode' : 'dark_mode'"
+          @click="$q.dark.toggle()"
+        />
         <q-btn-dropdown flat color="white" icon="person">
           <q-list>
             <q-item clickable v-close-popup @click="handleLogout">
@@ -72,7 +78,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue';
 import { useAuthUser } from 'src/composables/UseAuthUser';
-import { Dialog } from 'quasar';
+import { Dialog, Dark, LocalStorage } from 'quasar';
 import { useRouter } from 'vue-router';
 
 import { useDoropomoStore } from 'stores/doropomoStore';
@@ -89,6 +95,33 @@ export default defineComponent({
 
     onMounted(() => {
       store.resetTimer();
+      if (
+        LocalStorage.getItem('darkmode') ||
+        (window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        LocalStorage.set('darkmode', true);
+        Dark.set(true);
+      } else if (
+        !LocalStorage.getItem('darkmode') ||
+        (window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        LocalStorage.set('darkmode', false);
+        Dark.set(false);
+      }
+
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (event) => {
+          if (event.matches) {
+            LocalStorage.set('darkmode', true);
+            Dark.set(true);
+          } else {
+            LocalStorage.set('darkmode', false);
+            Dark.set(false);
+          }
+        });
     });
 
     onUnmounted(() => {

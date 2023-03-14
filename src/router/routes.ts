@@ -44,7 +44,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'categorias',
         name: 'categorias',
-        component: () => import('pages/IndexPage.vue'),
+        component: () => import('pages/category/List.vue'),
       },
       {
         path: 'recover_password',

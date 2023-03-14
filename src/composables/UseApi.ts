@@ -6,10 +6,11 @@ export const useApi = () => {
   const { user } = useAuthUser();
 
   const list = async (table: string) => {
-    const { data, error } = await supabase.from(table).select('*');
+    const { data: category, error } = await supabase.from(table).select('*');
     if (error) throw error;
-    return data;
+    return category;
   };
+
   const getById = async (table: string, id: number) => {
     const { data, error } = await supabase.from(table).select('*').eq('id', id);
     if (error) throw error;
