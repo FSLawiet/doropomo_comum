@@ -8,7 +8,7 @@ export const useDoropomoStore = defineStore('doropomo', {
     clockCount: 25 * 60,
     currentTimer: 'Rest',
     isPlaying: false,
-    loop: undefined as any,
+    loop: undefined as NodeJS.Timeout | undefined,
   }),
   getters: {
     getRestCount: (state) => state.restCount,
