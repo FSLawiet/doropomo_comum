@@ -3,9 +3,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, onUnmounted } from 'vue';
+import { useDoropomoStore } from './stores/doropomoStore';
+
+const store = useDoropomoStore();
+
+onMounted(() => {
+  store.resetTimer();
+});
+
+onUnmounted(() => {
+  store.resetTimer();
+});
 
 export default defineComponent({
-  name: 'App'
+  name: 'App',
 });
 </script>
