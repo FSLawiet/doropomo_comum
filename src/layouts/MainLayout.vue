@@ -132,7 +132,14 @@ export default defineComponent({
       Dialog.create({
         title: 'Logout?',
         message: 'Tem certeza de que deseja sair?',
-        cancel: true,
+        ok: {
+          flat: true,
+          color: 'primary',
+        },
+        cancel: {
+          flat: true,
+          color: 'primary',
+        },
         persistent: true,
       }).onOk(async () => {
         await logout();

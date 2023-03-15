@@ -47,6 +47,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/category/List.vue'),
       },
       {
+        path: 'categorias_form/:id?',
+        name: 'categorias_form',
+        component: () => import('pages/category/Form.vue'),
+      },
+      {
         path: 'recover_password',
         name: 'recover_password',
         component: () => import('pages/RecoverPassword.vue'),

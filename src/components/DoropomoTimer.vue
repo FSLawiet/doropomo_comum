@@ -7,8 +7,8 @@
           class="dots"
           :style="{
             transform: `rotateZ(
-            ${getClockCount * 6}deg
-          )`,
+              ${getClockCount * 6}deg
+            )`,
           }"
         ></div>
         <svg>
@@ -18,7 +18,7 @@
             cy="70"
             r="70"
             :style="{
-              'stroke-dashoffset': 440 - (440 - getClockCount) / 60,
+              'stroke-dashoffset': 440 - (440 - getClockCount / 60),
             }"
           ></circle>
         </svg>
