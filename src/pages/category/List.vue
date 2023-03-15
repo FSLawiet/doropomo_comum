@@ -11,7 +11,12 @@
         <template v-slot:top>
           <span class="text-h6">Categorias</span>
           <q-space />
-          <q-btn icon="add" color="primary" :to="{ name: 'categorias_form' }">
+          <q-btn
+            v-if="isDesktop"
+            icon="add"
+            color="primary"
+            :to="{ name: 'categorias_form' }"
+          >
             <q-tooltip>Inserir uma nova categoria</q-tooltip>
           </q-btn>
         </template>
@@ -39,12 +44,15 @@
         </template>
       </q-table>
     </div>
+    <q-page-sticky v-if="isMobile" position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="add" color="primary" :to="{ name: 'categorias_form' }" />
+    </q-page-sticky>
   </q-page>
 </template>
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
-import { Dialog, Notify } from 'quasar';
+import { Dialog, Notify, Platform } from 'quasar';
 import { useRouter } from 'vue-router';
 
 const columns = [
@@ -65,6 +73,9 @@ export default defineComponent({
     const isLoading = ref(true);
     const { list, remove } = useApi();
     const router = useRouter();
+
+    const isMobile = ref(Platform.is.mobile);
+    const isDesktop = ref(Platform.is.desktop);
 
     const handleListCategories = async () => {
       try {
@@ -115,7 +126,15 @@ export default defineComponent({
       handleListCategories();
     });
 
-    return { columns, categories, isLoading, handleEdit, handleDelete };
+    return {
+      columns,
+      categories,
+      isLoading,
+      handleEdit,
+      handleDelete,
+      isMobile,
+      isDesktop,
+    };
   },
 });
 </script>

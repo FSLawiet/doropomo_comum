@@ -20,7 +20,7 @@ export const useApi = () => {
   const post = async (table: string, form: any) => {
     const { data, error } = await supabase
       .from(table)
-      .insert([{ ...form, user: user.value?.id }]);
+      .insert([{ ...form, user_id: user.value?.id }]);
     if (error) throw error;
     return data;
   };
