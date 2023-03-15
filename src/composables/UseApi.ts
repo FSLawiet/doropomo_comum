@@ -16,6 +16,7 @@ export const useApi = () => {
     if (error) throw error;
     return data[0];
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const post = async (table: string, form: any) => {
     const { data, error } = await supabase
       .from(table)
@@ -23,7 +24,8 @@ export const useApi = () => {
     if (error) throw error;
     return data;
   };
-  const update = async (table: string, form: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const update = async (table: string, form: { id: any }) => {
     const { data, error } = await supabase
       .from(table)
       .update([{ ...form }])

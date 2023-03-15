@@ -12,11 +12,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
+import { Dark, LocalStorage } from 'quasar';
 
 export default defineComponent({
   name: 'LoginLayout',
   setup() {
+    onMounted(() => {
+      if (
+        LocalStorage.getItem('darkmode') ||
+        (window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        LocalStorage.set('darkmode', true);
+        Dark.set(true);
+      } else if (
+        !LocalStorage.getItem('darkmode') ||
+        (window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        LocalStorage.set('darkmode', false);
+        Dark.set(false);
+      }
+
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (event) => {
+          if (event.matches) {
+            LocalStorage.set('darkmode', true);
+            Dark.set(true);
+          } else {
+            LocalStorage.set('darkmode', false);
+            Dark.set(false);
+          }
+        });
+    });
+
     return {};
   },
 });
