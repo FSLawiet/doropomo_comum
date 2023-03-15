@@ -26,7 +26,13 @@
             >
               <q-tooltip>Editar Categoria {{ props.name }}</q-tooltip>
             </q-btn>
-            <q-btn icon="delete" color="primary" dense size="sm">
+            <q-btn
+              icon="delete"
+              color="primary"
+              dense
+              size="sm"
+              @click="handleDelete(props.row)"
+            >
               <q-tooltip>Excluir Categoria {{ props.name }}</q-tooltip>
             </q-btn>
           </q-td>
@@ -38,7 +44,7 @@
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
-import { Notify } from 'quasar';
+import { Dialog, Notify } from 'quasar';
 import { useRouter } from 'vue-router';
 
 const columns = [
@@ -57,7 +63,7 @@ export default defineComponent({
   setup() {
     const categories = ref([]);
     const isLoading = ref(true);
-    const { list } = useApi();
+    const { list, remove } = useApi();
     const router = useRouter();
 
     const handleListCategories = async () => {
@@ -76,11 +82,40 @@ export default defineComponent({
       router.push({ name: 'categorias_form', params: { id: category.id } });
     };
 
+    const handleDelete = async (category) => {
+      Dialog.create({
+        title: 'Exclusão de categorias',
+        message: `Tem certeza de que deseja excluir a categoria ${category.name}?`,
+        ok: {
+          flat: true,
+          color: 'primary',
+        },
+        cancel: {
+          flat: true,
+          color: 'primary',
+        },
+        persistent: true,
+      }).onOk(async () => {
+        try {
+          await remove('category', category.id);
+          Notify.create({
+            message: 'Categoria excluída com sucesso!',
+            type: 'positive',
+          });
+          handleListCategories();
+        } catch (error) {
+          let message = 'Erro desconhecido!';
+          if (error instanceof Error) message = error.message;
+          Notify.create({ message, type: 'negative' });
+        }
+      });
+    };
+
     onMounted(() => {
       handleListCategories();
     });
 
-    return { columns, categories, isLoading, handleEdit };
+    return { columns, categories, isLoading, handleEdit, handleDelete };
   },
 });
 </script>
