@@ -3,7 +3,13 @@
     <q-header elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-        <q-toolbar-title class="text-center">
+        <q-toolbar-title v-if="getIsPlaying" class="text-center">
+          <q-avatar>
+            <img src="icons/favicon-32x32.png" />
+          </q-avatar>
+          {{ getCurrentTimer }} - {{ convertToTime(getClockCount) }}
+        </q-toolbar-title>
+        <q-toolbar-title v-else class="text-center">
           <q-avatar>
             <img src="icons/favicon-32x32.png" />
           </q-avatar>
@@ -82,6 +88,7 @@ import { Dialog, Dark, LocalStorage } from 'quasar';
 import { useRouter } from 'vue-router';
 
 import { useDoropomoStore } from 'stores/doropomoStore';
+import { storeToRefs } from 'pinia';
 
 const store = useDoropomoStore();
 
@@ -168,6 +175,18 @@ export default defineComponent({
       },
     ];
 
+    const { getIsPlaying, getCurrentTimer, getClockCount } = storeToRefs(store);
+
+    const convertToTime = (count: number) => {
+      let minutes = Math.floor(count / 60);
+      let seconds = count % 60;
+
+      let minutesString = minutes < 10 ? '0' + minutes : minutes;
+      let secondsString = seconds < 10 ? '0' + seconds : seconds;
+
+      return `${minutesString}:${secondsString}`;
+    };
+
     return {
       leftDrawerOpen,
       toggleLeftDrawer() {
@@ -176,6 +195,10 @@ export default defineComponent({
       menuList,
       handleLogout,
       miniState: ref(true),
+      getIsPlaying,
+      getCurrentTimer,
+      getClockCount,
+      convertToTime,
     };
   },
 });

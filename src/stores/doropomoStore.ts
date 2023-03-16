@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import { Notify, Platform } from 'quasar';
+// import notifier from 'node-notifier';
 
 export const useDoropomoStore = defineStore('doropomo', {
   state: () => ({
@@ -41,6 +43,37 @@ export const useDoropomoStore = defineStore('doropomo', {
                 : this.currentTimer === 'Short Work'
                 ? this.longCount * 60
                 : this.restCount * 60;
+            if (Platform.is.desktop) {
+              const audio = new Audio('utils/notif.wav'); // path to file
+              console.log(audio);
+              audio.play();
+              Notify.create({
+                message:
+                  this.currentTimer === 'Rest'
+                    ? 'Chegou a hora da sessão curta de trabalho. Respire fundo e e não tenha pressa!'
+                    : this.currentTimer === 'Short Work'
+                    ? 'Chegou a hora da sessão longa de trabalho. Concentre-se bem e preste bastante atenção no seu corpo!'
+                    : 'Chegou a hora do descanso. Descanse a visão, se alongue e beba água!',
+                color: 'primary',
+                avatar: 'icons/favicon-32x32.png',
+                position: 'bottom-right',
+                actions: [
+                  {
+                    label: 'Dismiss',
+                    color: 'white',
+                    handler: () => {
+                      /* ... */
+                    },
+                  },
+                ],
+              });
+              /*
+              notifier.notify({
+                title: 'My notification',
+                message: 'Hello, there!',
+              });
+              */
+            }
           } else {
             this.clockCount = this.clockCount - 1;
           }
