@@ -155,6 +155,12 @@ export default defineComponent({
         routeName: 'perfil',
       },
       {
+        label: 'Produtos',
+        icon: 'shopping_bag',
+        separator: false,
+        routeName: 'produtos',
+      },
+      {
         label: 'Categorias',
         icon: 'category',
         separator: true,

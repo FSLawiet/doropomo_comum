@@ -2,23 +2,31 @@
   <q-page padding>
     <div class="row">
       <q-table
-        :rows="categories"
-        :columns="columnsCategory"
+        :rows="products"
+        :columns="columnsProduct"
         row-key="id"
         class="col-12"
         :loading="isLoading"
       >
         <template v-slot:top>
-          <span class="text-h6">Categorias</span>
+          <span class="text-h6">Produtos</span>
           <q-space />
           <q-btn
             v-if="isDesktop"
             icon="add"
             color="primary"
-            :to="{ name: 'categorias_form' }"
+            :to="{ name: 'produtos_form' }"
           >
-            <q-tooltip>Inserir uma nova categoria</q-tooltip>
+            <q-tooltip>Inserir um novo produto</q-tooltip>
           </q-btn>
+        </template>
+        <template v-slot:body-cell-img_url="props">
+          <q-td :props="props" class="q-gutter-x-sm">
+            <q-avatar v-if="props.row.img_url">
+              <img :src="props.row.img_url" :alt="props.row.name" />
+            </q-avatar>
+            <q-avatar v-else color="primary" icon="no_photography" />
+          </q-td>
         </template>
         <template v-slot:body-cell-actions="props">
           <q-td :props="props" class="q-gutter-x-sm">
@@ -29,7 +37,7 @@
               size="sm"
               @click="handleEdit(props.row)"
             >
-              <q-tooltip>Editar Categoria {{ props.row.name }}</q-tooltip>
+              <q-tooltip>Editar Produto {{ props.row.name }}</q-tooltip>
             </q-btn>
             <q-btn
               icon="delete"
@@ -38,14 +46,14 @@
               size="sm"
               @click="handleDelete(props.row)"
             >
-              <q-tooltip>Excluir Categoria {{ props.row.name }}</q-tooltip>
+              <q-tooltip>Excluir Produto {{ props.row.name }}</q-tooltip>
             </q-btn>
           </q-td>
         </template>
       </q-table>
     </div>
     <q-page-sticky v-if="isMobile" position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="add" color="primary" :to="{ name: 'categorias_form' }" />
+      <q-btn fab icon="add" color="primary" :to="{ name: 'produtos_form' }" />
     </q-page-sticky>
   </q-page>
 </template>
@@ -54,12 +62,12 @@ import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
 import { Dialog, Notify, Platform } from 'quasar';
 import { useRouter } from 'vue-router';
-import { columnsCategory } from './table';
+import { columnsProduct } from './table';
 
 export default defineComponent({
-  name: 'CategoryList',
+  name: 'ProductList',
   setup() {
-    const categories = ref([]);
+    const products = ref([]);
     const isLoading = ref(true);
     const { list, remove } = useApi();
     const router = useRouter();
@@ -67,10 +75,10 @@ export default defineComponent({
     const isMobile = ref(Platform.is.mobile);
     const isDesktop = ref(Platform.is.desktop);
 
-    const handleListCategories = async () => {
+    const handleListProducts = async () => {
       try {
         isLoading.value = true;
-        categories.value = await list('category');
+        products.value = await list('product');
         isLoading.value = false;
       } catch (error) {
         let message = 'Erro desconhecido!';
@@ -79,14 +87,14 @@ export default defineComponent({
       }
     };
 
-    const handleEdit = (category) => {
-      router.push({ name: 'categorias_form', params: { id: category.id } });
+    const handleEdit = (product) => {
+      router.push({ name: 'produtos_form', params: { id: product.id } });
     };
 
-    const handleDelete = async (category) => {
+    const handleDelete = async (product) => {
       Dialog.create({
-        title: 'Exclusão de categorias',
-        message: `Tem certeza de que deseja excluir a categoria ${category.name}?`,
+        title: 'Exclusão de produto',
+        message: `Tem certeza de que deseja excluir o produto ${product.name}?`,
         ok: {
           flat: true,
           color: 'primary',
@@ -98,12 +106,12 @@ export default defineComponent({
         persistent: true,
       }).onOk(async () => {
         try {
-          await remove('category', category.id);
+          await remove('product', product.id);
           Notify.create({
-            message: 'Categoria excluída com sucesso!',
+            message: 'Produto excluído com sucesso!',
             type: 'positive',
           });
-          handleListCategories();
+          handleListProducts();
         } catch (error) {
           let message = 'Erro desconhecido!';
           if (error instanceof Error) message = error.message;
@@ -113,12 +121,12 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      handleListCategories();
+      handleListProducts();
     });
 
     return {
-      columnsCategory,
-      categories,
+      columnsProduct,
+      products,
       isLoading,
       handleEdit,
       handleDelete,

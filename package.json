@@ -24,6 +24,7 @@
     "axios": "^1.2.1",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
+    "v-money": "^0.8.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
@@ -49,7 +50,6 @@
     "eslint-plugin-storybook": "^0.6.11",
     "eslint-plugin-vue": "^9.0.0",
     "prettier": "^2.5.1",
-    "supabase": "^1.42.5",
     "typescript": "^4.5.4",
     "vue-loader": "^16.8.3"
   },
