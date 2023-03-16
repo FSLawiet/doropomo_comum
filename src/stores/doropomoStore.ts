@@ -49,9 +49,9 @@ export const useDoropomoStore = defineStore('doropomo', {
               audio.play();
               Notify.create({
                 message:
-                  this.currentTimer === 'Rest'
-                    ? 'Chegou a hora da sessão curta de trabalho. Respire fundo e e não tenha pressa!'
-                    : this.currentTimer === 'Short Work'
+                  this.currentTimer === 'Short Work'
+                    ? 'Chegou a hora da sessão curta de trabalho. Respire fundo e não tenha pressa!'
+                    : this.currentTimer === 'Long Work'
                     ? 'Chegou a hora da sessão longa de trabalho. Concentre-se bem e preste bastante atenção no seu corpo!'
                     : 'Chegou a hora do descanso. Descanse a visão, se alongue e beba água!',
                 color: 'primary',

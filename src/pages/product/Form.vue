@@ -15,8 +15,7 @@
           outlined
           rounded
           :rules="[
-            (val) =>
-              (val && val.length > 0) || 'Nome de categoria obrigatório.',
+            (val) => (val && val.length > 0) || 'Nome de produto obrigatório.',
           ]"
         />
         <q-editor v-model="form.description" min-height="5rem" />
@@ -28,7 +27,7 @@
           outlined
           rounded
           :rules="[
-            (val) => (val && val > 0) || 'Nome de categoria obrigatório.',
+            (val) => (val && val >= 0) || 'Quantidade de produtos obrigatória.',
           ]"
         />
         <q-field
@@ -61,6 +60,7 @@
           option-label="name"
           map-options
           emit-value
+          :rules="[(val) => !!val || 'Categoria de produto obrigatória.']"
         ></q-select>
         <q-btn
           :label="isUpdate ? 'Alterar' : 'Salvar'"
