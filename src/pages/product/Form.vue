@@ -9,6 +9,13 @@
         @submit.prevent="handleForm"
       >
         <q-input
+          type="file"
+          label="Imagem"
+          stack-label
+          v-model="img"
+          accept="image/*"
+        />
+        <q-input
           label="Nome"
           v-model="form.name"
           lazy-rules
@@ -103,7 +110,7 @@ export default defineComponent({
     const table = 'product';
     const router = useRouter();
     const route = useRoute();
-    const { post, getById, update, list } = useApi();
+    const { post, getById, update, list, uploadImg } = useApi();
 
     const isUpdate = computed(() => route.params.id);
 
@@ -114,8 +121,9 @@ export default defineComponent({
       description: '',
       amount: 0,
       price: '0',
+      img_url: '',
     });
-
+    const img = ref([]);
     const converteMoedaFloat = (valor) => {
       let preco = 0;
       if (valor !== '') {
@@ -133,6 +141,10 @@ export default defineComponent({
 
     const handleForm = async () => {
       try {
+        if (img.value.length > 0) {
+          const imgUrl = await uploadImg(img.value[0], 'products');
+          form.value.img_url = imgUrl;
+        }
         if (isUpdate.value) {
           await update(table, {
             ...form.value,
@@ -180,6 +192,7 @@ export default defineComponent({
 
     return {
       form,
+      img,
       optionsCategory,
       isUpdate,
       getProductById,
