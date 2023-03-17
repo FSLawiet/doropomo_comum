@@ -52,6 +52,7 @@
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
+import { useAuthUser } from 'src/composables/UseAuthUser';
 import { Dialog, Notify, Platform } from 'quasar';
 import { useRouter } from 'vue-router';
 import { columnsCategory } from './table';
@@ -62,6 +63,7 @@ export default defineComponent({
     const categories = ref([]);
     const isLoading = ref(true);
     const { list, remove } = useApi();
+    const { user } = useAuthUser();
     const router = useRouter();
 
     const isMobile = ref(Platform.is.mobile);
@@ -70,7 +72,7 @@ export default defineComponent({
     const handleListCategories = async () => {
       try {
         isLoading.value = true;
-        categories.value = await list('category');
+        categories.value = await list('category', user.value.id);
         isLoading.value = false;
       } catch (error) {
         let message = 'Erro desconhecido!';

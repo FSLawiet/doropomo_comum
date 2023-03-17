@@ -10,6 +10,16 @@
       >
         <template v-slot:top>
           <span class="text-h6">Produtos</span>
+          <q-btn
+            label="Loja"
+            dense
+            size="sm"
+            outline
+            class="q-ml-sm"
+            icon="store"
+            color="primary"
+            @click="handleGoToStore"
+          />
           <q-space />
           <q-btn
             v-if="isDesktop"
@@ -60,6 +70,7 @@
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
+import { useAuthUser } from 'src/composables/UseAuthUser';
 import { Dialog, Notify, Platform } from 'quasar';
 import { useRouter } from 'vue-router';
 import { columnsProduct } from './table';
@@ -70,6 +81,7 @@ export default defineComponent({
     const products = ref([]);
     const isLoading = ref(true);
     const { list, remove } = useApi();
+    const { user } = useAuthUser();
     const router = useRouter();
 
     const isMobile = ref(Platform.is.mobile);
@@ -78,7 +90,7 @@ export default defineComponent({
     const handleListProducts = async () => {
       try {
         isLoading.value = true;
-        products.value = await list('product');
+        products.value = await list('product', user.value.id);
         isLoading.value = false;
       } catch (error) {
         let message = 'Erro desconhecido!';
@@ -120,6 +132,11 @@ export default defineComponent({
       });
     };
 
+    const handleGoToStore = () => {
+      const IdUser = user.value.id;
+      router.push({ name: 'product_public', params: { id: IdUser } });
+    };
+
     onMounted(() => {
       handleListProducts();
     });
@@ -130,6 +147,7 @@ export default defineComponent({
       isLoading,
       handleEdit,
       handleDelete,
+      handleGoToStore,
       isMobile,
       isDesktop,
     };

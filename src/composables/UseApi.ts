@@ -6,7 +6,16 @@ export const useApi = () => {
   const { supabase } = useSupabase();
   const { user } = useAuthUser();
 
-  const list = async (table: string) => {
+  const list = async (table: string, userId: string) => {
+    const { data: category, error } = await supabase
+      .from(table)
+      .select('*')
+      .eq('user_id', userId);
+    if (error) throw error;
+    return category;
+  };
+
+  const listPublic = async (table: string) => {
     const { data: category, error } = await supabase.from(table).select('*');
     if (error) throw error;
     return category;
@@ -57,5 +66,5 @@ export const useApi = () => {
     return data.publicUrl;
   };
 
-  return { list, getById, post, update, remove, uploadImg };
+  return { list, listPublic, getById, post, update, remove, uploadImg };
 };

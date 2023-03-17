@@ -2,11 +2,21 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/login',
+    path: '/',
     component: () => import('layouts/LoginLayout.vue'),
     children: [
       {
         path: '',
+        name: 'index',
+        component: () => import('pages/IndexPage.vue'),
+      },
+      {
+        path: 'loja/:id',
+        name: 'product_public',
+        component: () => import('pages/product/Public.vue'),
+      },
+      {
+        path: 'login',
         name: 'login',
         component: () => import('pages/LoginPage.vue'),
       },
@@ -31,11 +41,6 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      {
-        path: '',
-        name: 'index',
-        component: () => import('pages/IndexPage.vue'),
-      },
       {
         path: 'perfil',
         name: 'perfil',
