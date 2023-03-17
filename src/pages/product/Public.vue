@@ -27,7 +27,11 @@
         </template>
         <template v-slot:item="props">
           <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-            <q-card class="product-card">
+            <q-card
+              class="product-card cursor-pointer"
+              v-ripple:primary
+              @click="handleShowDetails(props.row)"
+            >
               <q-img
                 :src="props.row.img_url"
                 :ratio="4 / 3"
@@ -57,17 +61,26 @@
         </template>
       </q-table>
     </div>
+    <ProductDetails
+      :show="showDetails"
+      :product="productSelected"
+      @hide-dialog="showDetails = false"
+    />
   </q-page>
 </template>
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
+import ProductDetails from 'components/ProductDetails.vue';
 import { Notify } from 'quasar';
 import { columnsProduct } from './table';
 import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'ProductPublic',
+  components: {
+    ProductDetails,
+  },
   setup() {
     const products = ref([]);
     const isLoading = ref(true);
@@ -87,12 +100,24 @@ export default defineComponent({
       }
     };
 
+    const showDetails = ref(false);
+
+    const handleShowDetails = (product) => {
+      productSelected.value = product;
+      showDetails.value = true;
+    };
+
+    const productSelected = ref({});
+
     onMounted(() => {
       if (route.params.id) handleListProducts(route.params.id);
     });
 
     return {
       columnsProduct,
+      showDetails,
+      handleShowDetails,
+      productSelected,
       products,
       isLoading,
       filter,
