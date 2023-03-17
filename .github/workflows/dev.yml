@@ -23,6 +23,10 @@ jobs:
         run: |
           npm i -g @quasar/cli
           npm i
+      - name: Criar env
+        env:
+          ENV: ${{ secrets.ENV }}
+        run: echo "$ENV" > ./.env
       - name: Build do Aplicativo
         run: quasar build --modern
       - name: Deploy para o Netlify
