@@ -2,11 +2,13 @@ import { createClient } from '@supabase/supabase-js';
 import { useAuthUser } from '../composables/UseAuthUser';
 import { Database } from 'components/supabase-types';
 
-const supabaseUrl = 'https://jxizmmziaqvkbykhtkmz.supabase.co';
-const supabaseKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aXptbXppYXF2a2J5a2h0a216Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzg1MDMyOTYsImV4cCI6MTk5NDA3OTI5Nn0.YMxRdK1f88sPdIl8AqCCBOFrSWZld833hCEIfYMnwJg';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 
-const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+const supabase = createClient<Database>(
+  supabaseUrl ? supabaseUrl : '',
+  supabaseKey ? supabaseKey : ''
+);
 
 supabase.auth.onAuthStateChange((event, session) => {
   const { user } = useAuthUser();

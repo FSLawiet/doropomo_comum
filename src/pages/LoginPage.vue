@@ -62,7 +62,7 @@
   </q-page>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import { useAuthUser } from '../composables/UseAuthUser';
 import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
@@ -71,11 +71,15 @@ export default defineComponent({
   name: 'LoginPage',
   setup() {
     const router = useRouter();
-    const { login } = useAuthUser();
+    const { login, isLoggedIn } = useAuthUser();
 
     const form = ref({
       email: '',
       password: '',
+    });
+
+    onMounted(() => {
+      if (isLoggedIn()) router.push({ name: 'perfil' });
     });
 
     const handleLogin = async () => {
