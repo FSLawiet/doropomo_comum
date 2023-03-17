@@ -9,8 +9,7 @@ jobs:
   build-spa:
     name: Fazer o Build do Aplicativo em SPA (Single Page Aplication)
     permissions:
-      id-token: write
-      contents: read
+      contents: write
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
