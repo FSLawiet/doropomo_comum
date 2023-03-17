@@ -9,8 +9,8 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 const { configure } = require('quasar/wrappers');
-
-module.exports = configure(function (/* ctx */) {
+require('dotenv').config();
+module.exports = configure(function (ctx) {
   return {
     eslint: {
       // fix: true,
@@ -63,9 +63,12 @@ module.exports = configure(function (/* ctx */) {
       // publicPath: '/',
       // analyze: true,
       env: {
-        SUPABASE_URL: 'https://jxizmmziaqvkbykhtkmz.supabase.co',
-        SUPABASE_KEY:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aXptbXppYXF2a2J5a2h0a216Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzg1MDMyOTYsImV4cCI6MTk5NDA3OTI5Nn0.YMxRdK1f88sPdIl8AqCCBOFrSWZld833hCEIfYMnwJg',
+        SUPABASE_URL: ctx.dev
+          ? process.env.SUPABASE_URL
+          : process.env.SUPABASE_URL,
+        SUPABASE_KEY: ctx.dev
+          ? process.env.SUPABASE_KEY
+          : process.env.SUPABASE_KEY,
       },
       // rawDefine: {}
       // ignorePublicFolder: true,
