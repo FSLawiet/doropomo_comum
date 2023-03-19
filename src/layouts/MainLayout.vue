@@ -74,7 +74,8 @@
           <q-avatar>
             <img src="icons/favicon-32x32.png" />
           </q-avatar>
-          <div>Comum</div>
+          <div v-if="config.name">{{ config.name }} - Comum</div>
+          <div v-else>Comum</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
@@ -98,7 +99,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { logout } = useAuthUser();
-    const { getTheme } = useApi();
+    const { config, getTheme } = useApi();
 
     const leftDrawerOpen = ref(false);
 
@@ -197,6 +198,7 @@ export default defineComponent({
     };
 
     return {
+      config,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

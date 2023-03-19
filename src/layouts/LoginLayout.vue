@@ -2,7 +2,10 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title v-if="config.name">
+          {{ config.name }} - Comum
+        </q-toolbar-title>
+        <q-toolbar-title v-else> Comum </q-toolbar-title>
       </q-toolbar>
     </q-header>
     <q-page-container>
@@ -19,7 +22,7 @@ import { useApi } from 'src/composables/UseApi';
 export default defineComponent({
   name: 'LoginLayout',
   setup() {
-    const { getTheme } = useApi();
+    const { config, getTheme } = useApi();
 
     onMounted(() => {
       getTheme();
@@ -52,7 +55,7 @@ export default defineComponent({
         });
     });
 
-    return {};
+    return { config };
   },
 });
 </script>

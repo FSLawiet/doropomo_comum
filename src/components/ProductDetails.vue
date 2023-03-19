@@ -34,6 +34,7 @@
       <q-card-actions align="right">
         <q-btn label="Cancelar" outline color="primary" v-close-popup />
         <q-btn
+          v-if="config.phone"
           icon="send"
           label="Fazer Pedido"
           color="primary"
@@ -46,6 +47,7 @@
 <script>
 import { defineComponent, ref } from 'vue';
 import { openURL, Platform } from 'quasar';
+import { useApi } from 'src/composables/UseApi';
 
 export default defineComponent({
   name: 'ProductDetails',
@@ -60,22 +62,22 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const isMobile = ref(Platform.is.mobile);
+    const { config } = useApi();
 
     const handleClose = () => {
       emit('hideDialog');
     };
 
     const handleSend = () => {
-      const phone = '5562981380914';
       const msg = `Envio de ${props.product.name}`;
 
       const link = encodeURI(
-        `https://api.whatsapp.com/send?phone=${phone}&text=${msg}`
+        `https://api.whatsapp.com/send?phone=${config.value.phone}&text=${msg}`
       );
       openURL(link);
     };
 
-    return { isMobile, handleClose, handleSend };
+    return { isMobile, config, handleClose, handleSend };
   },
 });
 </script>

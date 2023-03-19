@@ -20,6 +20,16 @@
             color="primary"
             @click="handleGoToStore"
           />
+          <q-btn
+            label="Copiar"
+            dense
+            size="sm"
+            outline
+            class="q-ml-sm"
+            icon="content_copy"
+            color="primary"
+            @click="handleCopyClipboard"
+          />
           <q-space />
           <q-btn
             v-if="isDesktop"
@@ -71,7 +81,7 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
 import { useAuthUser } from 'src/composables/UseAuthUser';
-import { Dialog, Notify, Platform, openURL } from 'quasar';
+import { Dialog, Notify, Platform, copyToClipboard, openURL } from 'quasar';
 import { useRouter } from 'vue-router';
 import { columnsProduct } from './table';
 
@@ -141,6 +151,24 @@ export default defineComponent({
       openURL(window.origin + link.href);
     };
 
+    const handleCopyClipboard = () => {
+      const IdUser = user.value.id;
+      const link = router.resolve({
+        name: 'product_public',
+        params: { id: IdUser },
+      });
+      const externalLink = window.origin + link.href;
+      copyToClipboard(externalLink)
+        .then(() => {
+          Notify.create({ message: 'Link Copiado', type: 'info' });
+        })
+        .catch((error) => {
+          let message = 'Erro desconhecido!';
+          if (error instanceof Error) message = error.message;
+          Notify.create({ message, type: 'negative' });
+        });
+    };
+
     onMounted(() => {
       handleListProducts();
     });
@@ -152,6 +180,7 @@ export default defineComponent({
       handleEdit,
       handleDelete,
       handleGoToStore,
+      handleCopyClipboard,
       isMobile,
       isDesktop,
     };
