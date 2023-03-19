@@ -23,6 +23,8 @@
         class="col-12"
         :loading="isLoading"
         :filter="filter"
+        v-model:pagination="initialPagination"
+        hide-pagination
       >
         <template v-slot:top>
           <span class="text-h6">Produtos</span>
@@ -75,6 +77,14 @@
         </template>
       </q-table>
     </div>
+    <div class="row justify-center q-mt-md">
+      <q-pagination
+        v-model="initialPagination.page"
+        :max="pagesNumber"
+        direction-links
+        @update:model-value="handleScrollToTop"
+      />
+    </div>
     <ProductDetails
       :show="showDetails"
       :product="productSelected"
@@ -83,11 +93,11 @@
   </q-page>
 </template>
 <script>
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted, computed } from 'vue';
 import { useApi } from 'src/composables/UseApi';
 import ProductDetails from 'components/ProductDetails.vue';
 import { Notify } from 'quasar';
-import { columnsProduct } from './table';
+import { columnsProduct, initialPagination } from './table';
 import { useRoute } from 'vue-router';
 
 export default defineComponent({
@@ -129,6 +139,10 @@ export default defineComponent({
       optionsCategories.value = await list('category', userId);
     };
 
+    const handleScrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const productSelected = ref({});
 
     onMounted(() => {
@@ -140,16 +154,21 @@ export default defineComponent({
 
     return {
       columnsProduct,
+      initialPagination,
       categoryId,
       optionsCategories,
       handleListProducts,
       showDetails,
       handleShowDetails,
+      handleScrollToTop,
       productSelected,
       products,
       isLoading,
       filter,
       route,
+      pagesNumber: computed(() =>
+        Math.ceil(products.value.length / initialPagination.value.rowPerPage)
+      ),
     };
   },
 });

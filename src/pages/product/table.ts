@@ -1,3 +1,5 @@
+import { ref } from 'vue';
+
 export const columnsProduct = [
   {
     name: 'img_url',
@@ -36,3 +38,8 @@ export const columnsProduct = [
     sortable: false,
   },
 ];
+
+export const initialPagination = ref({
+  page: 1,
+  rowPerPage: 5,
+});
