@@ -92,6 +92,7 @@
 import { defineComponent, ref, onMounted, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useApi } from 'src/composables/UseApi';
+import { useAuthUser } from 'src/composables/UseAuthUser';
 import { Notify } from 'quasar';
 import { VMoney } from 'v-money';
 
@@ -111,6 +112,7 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const { post, getById, update, list, uploadImg } = useApi();
+    const { user } = useAuthUser();
 
     const isUpdate = computed(() => route.params.id);
 
@@ -136,7 +138,7 @@ export default defineComponent({
     };
 
     const listCategories = async () => {
-      optionsCategory.value = await list('category');
+      optionsCategory.value = await list('category', user.value.id);
     };
 
     const handleForm = async () => {

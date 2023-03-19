@@ -19,11 +19,17 @@ export const useApi = () => {
   const route = useRoute();
   const { setTheme } = useTheme();
 
-  const list = async (table: string, userId: string) => {
+  const list = async (
+    table: string,
+    userId: string,
+    columnFilter = '',
+    filter = ''
+  ) => {
     const { data, error } = await supabase
       .from(table)
       .select('*')
-      .eq('user_id', userId);
+      .eq('user_id', userId)
+      .eq(columnFilter, filter);
     if (error) throw error;
     return data;
   };

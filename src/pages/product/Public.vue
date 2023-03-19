@@ -1,6 +1,20 @@
 <template>
   <q-page padding>
     <div class="row">
+      <q-select
+        outlined
+        v-model="categoryId"
+        :options="optionsCategories"
+        label="Categorias"
+        class="col-12"
+        dense
+        option-label="name"
+        option-value="id"
+        map-options
+        emit-value
+        clearable
+        @update:model-value="handleListProducts(route.params.id)"
+      />
       <q-table
         grid
         :rows="products"
@@ -87,11 +101,15 @@ export default defineComponent({
     const { list } = useApi();
     const route = useRoute();
     const filter = ref('');
+    const optionsCategories = ref([]);
+    const categoryId = ref('');
 
     const handleListProducts = async (userId) => {
       try {
         isLoading.value = true;
-        products.value = await list('product', userId);
+        products.value = categoryId.value
+          ? await list('product', userId, 'category_id', categoryId.value)
+          : await list('product', userId);
         isLoading.value = false;
       } catch (error) {
         let message = 'Erro desconhecido!';
@@ -107,20 +125,31 @@ export default defineComponent({
       showDetails.value = true;
     };
 
+    const handleListCategories = async (userId) => {
+      optionsCategories.value = await list('category', userId);
+    };
+
     const productSelected = ref({});
 
     onMounted(() => {
-      if (route.params.id) handleListProducts(route.params.id);
+      if (route.params.id) {
+        handleListProducts(route.params.id);
+        handleListCategories(route.params.id);
+      }
     });
 
     return {
       columnsProduct,
+      categoryId,
+      optionsCategories,
+      handleListProducts,
       showDetails,
       handleShowDetails,
       productSelected,
       products,
       isLoading,
       filter,
+      route,
     };
   },
 });
