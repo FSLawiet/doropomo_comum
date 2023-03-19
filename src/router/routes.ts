@@ -71,6 +71,11 @@ const routes: RouteRecordRaw[] = [
         name: 'recover_password',
         component: () => import('pages/RecoverPassword.vue'),
       },
+      {
+        path: 'config/:id?',
+        name: 'config',
+        component: () => import('pages/config/Form.vue'),
+      },
     ],
     meta: { requiresAuth: true },
   },

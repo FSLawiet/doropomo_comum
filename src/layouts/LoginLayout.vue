@@ -14,11 +14,15 @@
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import { Dark, LocalStorage } from 'quasar';
+import { useApi } from 'src/composables/UseApi';
 
 export default defineComponent({
   name: 'LoginLayout',
   setup() {
+    const { getTheme } = useApi();
+
     onMounted(() => {
+      getTheme();
       if (
         LocalStorage.getItem('darkmode') ||
         (window.matchMedia &&

@@ -1,24 +1,37 @@
 import useSupabase from 'src/boot/supabase';
+import { ref } from 'vue';
 import { useAuthUser } from './UseAuthUser';
 import { v4 as uuidv4 } from 'uuid';
+import { useRoute } from 'vue-router';
+import { useTheme } from './UseTheme';
+import { Loading } from 'quasar';
+
+const config = ref({
+  primary: '',
+  secondary: '',
+  name: '',
+  phone: '',
+});
 
 export const useApi = () => {
   const { supabase } = useSupabase();
   const { user } = useAuthUser();
+  const route = useRoute();
+  const { setTheme } = useTheme();
 
   const list = async (table: string, userId: string) => {
-    const { data: category, error } = await supabase
+    const { data, error } = await supabase
       .from(table)
       .select('*')
       .eq('user_id', userId);
     if (error) throw error;
-    return category;
+    return data;
   };
 
   const listPublic = async (table: string) => {
-    const { data: category, error } = await supabase.from(table).select('*');
+    const { data, error } = await supabase.from(table).select('*');
     if (error) throw error;
-    return category;
+    return data;
   };
 
   const getById = async (table: string, id: number) => {
@@ -66,5 +79,34 @@ export const useApi = () => {
     return data.publicUrl;
   };
 
-  return { list, listPublic, getById, post, update, remove, uploadImg };
+  const getTheme = async () => {
+    const id = route.params.id || user?.value?.id;
+    if (id) {
+      Loading.show();
+      const { data, error } = await supabase
+        .from('config')
+        .select('*')
+        .eq('user_id', id);
+      if (error) throw error;
+      if (data.length > 0) {
+        const { primary, secondary, name, phone } = data[0];
+        config.value = { primary, secondary, name, phone };
+        setTheme(config.value.primary, config.value.secondary);
+      }
+      Loading.hide();
+      return config;
+    }
+  };
+
+  return {
+    list,
+    listPublic,
+    getById,
+    post,
+    update,
+    remove,
+    uploadImg,
+    getTheme,
+    config,
+  };
 };

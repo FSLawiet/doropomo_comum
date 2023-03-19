@@ -84,6 +84,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue';
 import { useAuthUser } from 'src/composables/UseAuthUser';
+import { useApi } from 'src/composables/UseApi';
 import { Dialog, Dark, LocalStorage } from 'quasar';
 import { useRouter } from 'vue-router';
 
@@ -97,10 +98,12 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { logout } = useAuthUser();
+    const { getTheme } = useApi();
 
     const leftDrawerOpen = ref(false);
 
     onMounted(() => {
+      getTheme();
       store.resetTimer();
       if (
         LocalStorage.getItem('darkmode') ||
@@ -172,6 +175,12 @@ export default defineComponent({
         icon: 'category',
         separator: true,
         routeName: 'categorias',
+      },
+      {
+        label: 'Configurações',
+        icon: 'settings',
+        separaor: false,
+        routeName: 'config',
       },
     ];
 

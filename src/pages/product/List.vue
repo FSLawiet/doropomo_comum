@@ -71,7 +71,7 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { useApi } from 'src/composables/UseApi';
 import { useAuthUser } from 'src/composables/UseAuthUser';
-import { Dialog, Notify, Platform } from 'quasar';
+import { Dialog, Notify, Platform, openURL } from 'quasar';
 import { useRouter } from 'vue-router';
 import { columnsProduct } from './table';
 
@@ -134,7 +134,11 @@ export default defineComponent({
 
     const handleGoToStore = () => {
       const IdUser = user.value.id;
-      router.push({ name: 'product_public', params: { id: IdUser } });
+      const link = router.resolve({
+        name: 'product_public',
+        params: { id: IdUser },
+      });
+      openURL(window.origin + link.href);
     };
 
     onMounted(() => {
