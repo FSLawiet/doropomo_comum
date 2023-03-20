@@ -30,7 +30,7 @@ jobs:
       - name: Build do Aplicativo
         run: quasar build -m pwa --modern
       - name: Deploy para o Netlify
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v2.0.0
         with:
           publish-dir: './dist/pwa'
           production-branch: dev
