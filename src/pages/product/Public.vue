@@ -42,7 +42,7 @@
           </q-input>
         </template>
         <template v-slot:item="props">
-          <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
+          <div class="q-pa-xs col-xs-12 col-sm-6 col-md-3">
             <q-card
               class="product-card cursor-pointer"
               v-ripple:primary
@@ -73,6 +73,18 @@
                 </div>
               </q-card-section>
             </q-card>
+          </div>
+          <div class="col-12 q-pa-md" v-if="props.rowIndex === 3">
+            <q-parallax :height="200" :speed="0.5">
+              <template v-slot:media>
+                <video width="720" height="440" autoplay loop muted>
+                  <source type="video/webm" :src="parallaxWebm" />
+                  <source type="video/mp4" :src="parallaxMp4" />
+                </video>
+              </template>
+
+              <h3 class="text-white">{{ config.name }}</h3>
+            </q-parallax>
           </div>
         </template>
       </q-table>
@@ -108,11 +120,14 @@ export default defineComponent({
   setup() {
     const products = ref([]);
     const isLoading = ref(true);
-    const { list } = useApi();
+    const { config, list } = useApi();
     const route = useRoute();
     const filter = ref('');
     const optionsCategories = ref([]);
     const categoryId = ref('');
+
+    const parallaxWebm = ref('/videos/parallax.webm');
+    const parallaxMp4 = ref('/videos/parallax.mp4');
 
     const handleListProducts = async (userId) => {
       try {
@@ -164,11 +179,14 @@ export default defineComponent({
       productSelected,
       products,
       isLoading,
+      config,
       filter,
       route,
       pagesNumber: computed(() =>
-        Math.ceil(products.value.length / initialPagination.value.rowPerPage)
+        Math.ceil(products.value.length / initialPagination.value.rowsPerPage)
       ),
+      parallaxWebm,
+      parallaxMp4,
     };
   },
 });
