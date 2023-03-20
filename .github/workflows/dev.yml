@@ -28,7 +28,7 @@ jobs:
           ENV: ${{ secrets.ENV }}
         run: echo "$ENV" > ./.env
       - name: Build do Aplicativo
-        run: quasar build --modern
+        run: quasar build -m pwa --modern
       - name: Deploy para o Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
