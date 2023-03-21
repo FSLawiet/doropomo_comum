@@ -11,6 +11,7 @@
     "format": "prettier --write \"**/*.{js,ts,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev --modern",
+    "dev:ssr": "quasar dev -m ssr --modern",
     "dev:pwa": "quasar dev -m pwa --modern",
     "build": "quasar build --modern",
     "build:pwa": "quasar build -m pwa --modern",

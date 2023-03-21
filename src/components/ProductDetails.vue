@@ -46,7 +46,7 @@
 </template>
 <script>
 import { defineComponent, ref } from 'vue';
-import { openURL, Platform } from 'quasar';
+import { openURL, useQuasar } from 'quasar';
 import { useApi } from 'src/composables/UseApi';
 
 export default defineComponent({
@@ -61,7 +61,9 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const isMobile = ref(Platform.is.mobile);
+    const $q = useQuasar();
+
+    const isMobile = ref($q.platform.is.mobile);
     const { config } = useApi();
 
     const handleClose = () => {

@@ -22,7 +22,7 @@ module.exports = configure(function (ctx) {
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
-    // preFetch: true,
+    preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -153,7 +153,7 @@ module.exports = configure(function (ctx) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: false,
+      pwa: true,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
@@ -174,9 +174,9 @@ module.exports = configure(function (ctx) {
       manifestFilename: 'manifest.json',
       useCredentialsForManifestTag: false,
       // useFilenameHashes: true,
-      extendGenerateSWOptions(cfg) {
-        (cfg.skipWaiting = true), (cfg.clientsClaim = true);
-      },
+      // extendGenerateSWOptions(cfg) {
+      //  (cfg.skipWaiting = true), (cfg.clientsClaim = true);
+      // },
       // extendInjectManifestOptions (cfg) {},
       // extendManifestJson (json) {}
       // extendPWACustomSWConf (esbuildConf) {}
