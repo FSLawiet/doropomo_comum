@@ -40,6 +40,19 @@ export const useApi = () => {
     return data;
   };
 
+  const fetchCount = async (
+    table: string,
+    userId: string,
+    countType: 'exact' | 'planned' | 'estimated'
+  ) => {
+    const { count, error } = await supabase
+      .from(table)
+      .select('*', { head: true, count: countType })
+      .eq('user_id', userId);
+    if (error) throw error;
+    return count;
+  };
+
   const getById = async (table: string, id: number) => {
     const { data, error } = await supabase.from(table).select('*').eq('id', id);
     if (error) throw error;
@@ -106,6 +119,7 @@ export const useApi = () => {
 
   return {
     list,
+    fetchCount,
     listPublic,
     getById,
     post,

@@ -178,6 +178,12 @@ export default defineComponent({
         routeName: 'categorias',
       },
       {
+        label: 'Doropomo',
+        icon: 'timer',
+        separator: true,
+        routeName: 'doropomo',
+      },
+      {
         label: 'Configurações',
         icon: 'settings',
         separaor: false,
