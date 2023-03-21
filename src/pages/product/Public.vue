@@ -42,50 +42,60 @@
           </q-input>
         </template>
         <template v-slot:item="props">
-          <div class="q-pa-xs col-xs-12 col-sm-6 col-md-3">
-            <q-card
-              class="product-card cursor-pointer"
-              v-ripple:primary
-              @click="handleShowDetails(props.row)"
-            >
-              <q-img
-                :src="props.row.img_url"
-                :ratio="4 / 3"
-                placeholder-src="https://dummyimage.com/800x600/d10a0a/fff.png&text=Trabalhadores+do+mundo,+uni-vos!"
+          <transition-group
+            appear
+            enter-active-class="animated fadeInLeft"
+            leave-active-class="animated fadeOutRight"
+          >
+            <div class="q-pa-xs col-xs-12 col-sm-6 col-md-3" key="card">
+              <q-card
+                class="product-card cursor-pointer"
+                v-ripple:primary
+                @click="handleShowDetails(props.row)"
               >
-                <template v-slot:error>
-                  <div
-                    class="absolute-full flex flex-center bg-negative text-white"
-                  >
-                    Cannot load image
+                <q-img
+                  :src="props.row.img_url"
+                  :ratio="4 / 3"
+                  placeholder-src="https://dummyimage.com/800x600/d10a0a/fff.png&text=Trabalhadores+do+mundo,+uni-vos!"
+                >
+                  <template v-slot:error>
+                    <div
+                      class="absolute-full flex flex-center bg-negative text-white"
+                    >
+                      Cannot load image
+                    </div>
+                  </template>
+                </q-img>
+                <q-card-section class="text-center">
+                  <div class="text-h6">{{ props.row.name }}</div>
+                  <div class="text-subtitle2">
+                    {{
+                      props.row.price.toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })
+                    }}
                   </div>
+                </q-card-section>
+              </q-card>
+            </div>
+            <div
+              class="col-12 q-pa-md"
+              v-if="props.rowIndex === 3"
+              key="parallax"
+            >
+              <q-parallax :height="200" :speed="0.5">
+                <template v-slot:media>
+                  <video width="720" height="440" autoplay loop muted>
+                    <source type="video/webm" :src="parallaxWebm" />
+                    <source type="video/mp4" :src="parallaxMp4" />
+                  </video>
                 </template>
-              </q-img>
-              <q-card-section class="text-center">
-                <div class="text-h6">{{ props.row.name }}</div>
-                <div class="text-subtitle2">
-                  {{
-                    props.row.price.toLocaleString('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    })
-                  }}
-                </div>
-              </q-card-section>
-            </q-card>
-          </div>
-          <div class="col-12 q-pa-md" v-if="props.rowIndex === 3">
-            <q-parallax :height="200" :speed="0.5">
-              <template v-slot:media>
-                <video width="720" height="440" autoplay loop muted>
-                  <source type="video/webm" :src="parallaxWebm" />
-                  <source type="video/mp4" :src="parallaxMp4" />
-                </video>
-              </template>
 
-              <h3 class="text-white">{{ config.name }}</h3>
-            </q-parallax>
-          </div>
+                <h3 class="text-white">{{ config.name }}</h3>
+              </q-parallax>
+            </div>
+          </transition-group>
         </template>
       </q-table>
     </div>

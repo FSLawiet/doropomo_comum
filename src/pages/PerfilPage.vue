@@ -1,5 +1,5 @@
 <template>
-  <q-page padding class="q-gutter-y-lg">
+  <q-page padding class="q-gutter-lg">
     <div class="row">
       <div v-if="user" class="col-12">
         <p class="text-h3 text-center">Olá {{ user.user_metadata.name }}</p>
