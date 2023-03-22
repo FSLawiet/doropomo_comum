@@ -1,3 +1,4 @@
+/// <reference types="histoire" />
 /* eslint-env node */
 
 /*
@@ -76,12 +77,12 @@ module.exports = configure(function (ctx) {
       // polyfillModulePreload: true,
       // distDir
 
-      // extendViteConf (viteConf) {},
+      extendViteConf(viteConf) {
+        viteConf.histoire.setupFile = 'src/histoire.setup.ts';
+      },
       // viteVuePluginOptions: {},
 
-      // vitePlugins: [
-      //   [ 'package-name', { ..options.. } ]
-      // ]
+      // vitePlugins: [['vue', {}]],
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
