@@ -52,7 +52,6 @@
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
-    "@vitejs/plugin-vue": "^4.1.0",
     "@vitest/ui": "^0.15.0",
     "@vue/test-utils": "^2.0.0",
     "auto-changelog": "^2.4.0",
