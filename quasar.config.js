@@ -1,3 +1,4 @@
+/// <reference types="histoire" />
 /* eslint-env node */
 
 /*
@@ -9,8 +10,8 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 const { configure } = require('quasar/wrappers');
-
-module.exports = configure(function (/* ctx */) {
+require('dotenv').config();
+module.exports = configure(function (ctx) {
   return {
     eslint: {
       // fix: true,
@@ -22,7 +23,7 @@ module.exports = configure(function (/* ctx */) {
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
-    // preFetch: true,
+    preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -62,19 +63,26 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: {
+        SUPABASE_URL: ctx.dev
+          ? process.env.SUPABASE_URL
+          : process.env.SUPABASE_URL,
+        SUPABASE_KEY: ctx.dev
+          ? process.env.SUPABASE_KEY
+          : process.env.SUPABASE_KEY,
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
       // polyfillModulePreload: true,
       // distDir
 
-      // extendViteConf (viteConf) {},
+      /*extendViteConf(viteConf) {
+        viteConf.histoire.setupFile = 'src/histoire.setup.ts';
+      },*/
       // viteVuePluginOptions: {},
 
-      // vitePlugins: [
-      //   [ 'package-name', { ..options.. } ]
-      // ]
+      // vitePlugins: [['vue', {}]],
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
@@ -86,6 +94,10 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
       config: {
+        loading: {
+          message: 'Aguarde...',
+          delay: 400,
+        },
         notify: {
           /* look at QuasarConfOptions from the API card */
         },
@@ -115,7 +127,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['AddressbarColor', 'Dialog', 'Notify'],
+      plugins: ['AddressbarColor', 'Dialog', 'Loading', 'Notify'],
     },
 
     // animations: 'all', // --- includes all animations
@@ -142,7 +154,7 @@ module.exports = configure(function (/* ctx */) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: false,
+      pwa: true,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
@@ -163,7 +175,9 @@ module.exports = configure(function (/* ctx */) {
       manifestFilename: 'manifest.json',
       useCredentialsForManifestTag: false,
       // useFilenameHashes: true,
-      // extendGenerateSWOptions (cfg) {}
+      // extendGenerateSWOptions(cfg) {
+      //  (cfg.skipWaiting = true), (cfg.clientsClaim = true);
+      // },
       // extendInjectManifestOptions (cfg) {},
       // extendManifestJson (json) {}
       // extendPWACustomSWConf (esbuildConf) {}
@@ -171,6 +185,8 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-cordova-apps/configuring-cordova
     cordova: {
+      androidVersionCode: '1',
+      backButtonExit: true / false / '*' / ['/login', '/', '/perfil'],
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
     },
 

@@ -23,15 +23,19 @@ jobs:
         run: |
           npm i -g @quasar/cli
           npm i
+      - name: Criar env
+        env:
+          ENV: ${{ secrets.ENV }}
+        run: echo "$ENV" > ./.env
       - name: Build do Aplicativo
-        run: quasar build --modern
+        run: quasar build -m pwa --modern
       - name: Deploy para o Netlify
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v2.0.0
         with:
-          publish-dir: './dist/spa'
-          production-branch: master
+          publish-dir: './dist/pwa'
+          production-branch: dev
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: 'Deploy from GitHub Actions'
+          deploy-message: ${{ github.event.pull_request.title }}
           enable-pull-request-comment: false
           enable-commit-comment: true
           overwrites-pull-request-comment: true

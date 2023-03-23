@@ -1,5 +1,6 @@
 .DS_Store
 .thumbs.db
+.env
 node_modules
 
 # Quasar core related directories
@@ -32,3 +33,6 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+.nyc_output
+coverage/
