@@ -174,6 +174,12 @@ export default defineComponent({
         routeName: 'perfil',
       },
       {
+        label: 'Atividades',
+        icon: 'task',
+        separator: true,
+        routeName: 'atividades',
+      },
+      {
         label: 'Produtos',
         icon: 'shopping_bag',
         separator: false,

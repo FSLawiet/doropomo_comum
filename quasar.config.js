@@ -77,9 +77,9 @@ module.exports = configure(function (ctx) {
       // polyfillModulePreload: true,
       // distDir
 
-      extendViteConf(viteConf) {
+      /*extendViteConf(viteConf) {
         viteConf.histoire.setupFile = 'src/histoire.setup.ts';
-      },
+      },*/
       // viteVuePluginOptions: {},
 
       // vitePlugins: [['vue', {}]],
