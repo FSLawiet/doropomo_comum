@@ -8,7 +8,7 @@
       glossy
       @click="handleNewTask"
     />
-    <q-list bordered separator>
+    <q-list bordered separator v-if="tasks.length > 0">
       <q-item clickable v-ripple v-for="(task, index) in tasks" :key="index">
         <q-item-section>
           <q-item-label>{{ task.desc }}</q-item-label>
