@@ -12,6 +12,7 @@
       <q-item clickable v-ripple v-for="(task, index) in tasks" :key="index">
         <q-item-section>
           <q-item-label>{{ task.desc }}</q-item-label>
+          <q-item-label caption>{{ task.tipo }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
@@ -23,11 +24,12 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name: 'TasksPage',
   setup() {
-    const tasks = ref<{ desc: string }[]>([]);
+    const tasks = ref<{ desc: string; tipo: string }[]>([]);
 
     const handleNewTask = () => {
       const newTask = {
         desc: 'Arrumar as coisas',
+        tipo: 'Rotina',
       };
 
       tasks.value.push(newTask);
