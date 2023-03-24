@@ -1,12 +1,12 @@
 [package]
-name = "app"
-version = "0.1.0"
+name = "doropomo_comum"
+version = "0.0.1"
 description = "A Tauri App"
 authors = ["you"]
 license = ""
 repository = ""
 default-run = "app"
-edition = "2021"
+edition = "2023"
 rust-version = "1.59"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
