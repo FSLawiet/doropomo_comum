@@ -1,5 +1,5 @@
 [package]
-name = "doropomo_comum"
+name = "app"
 version = "0.0.1"
 description = "A Tauri App"
 authors = ["you"]
