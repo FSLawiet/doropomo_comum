@@ -6,8 +6,8 @@ on:
       - dev
 
 jobs:
-  build-spa:
-    name: Fazer o Build do Aplicativo em SPA (Single Page Aplication)
+  build-pwa:
+    name: Fazer o Build do Aplicativo em PWA (Progressive Web App)
     permissions:
       contents: write
     strategy:

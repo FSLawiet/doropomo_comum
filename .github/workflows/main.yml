@@ -1,0 +1,148 @@
+name: Doropomo Comum Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-release:
+    name: Inicialização de Release
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    outputs:
+      release_id: ${{ steps.step-id.outputs.release_id }}
+      upload_url: ${{ steps.step-url.outputs.upload_url }}
+      version: ${{ steps.step-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: get version
+        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      - name: create release
+        id: create-release
+        uses: actions/github-script@v6.3.3
+        with:
+          script: |
+            const { data } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `v${process.env.PACKAGE_VERSION}`,
+              name: `Desktop App v${process.env.PACKAGE_VERSION}`,
+              body: 'Take a look at the assets to download and install this app.',
+              draft: true,
+              prerelease: false
+            })
+            core.exportVariable('RELEASE_ID', data.id);
+            core.exportVariable('RELEASE_UPLOAD_URL', data.upload_url);
+            core.exportVariable('RELEASE_VERSION', process.env.PACKAGE_VERSION)
+      - name: Set Release Id
+        id: step-id
+        run: echo "release_id=$RELEASE_ID" >> $GITHUB_OUTPUT
+      - name: Set Upload URL
+        id: step-url
+        run: echo "upload_url=$RELEASE_UPLOAD_URL" >> $GITHUB_OUTPUT
+      - name: Set Version
+        id: step-version
+        run: echo "version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+  build-tauri:
+    needs: create-release
+    name: Fazer o Build do Aplicativo em SPA (Single Page Aplication) no Tauri
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+      - name: install frontend dependencies
+        run: npm install # change this to npm or pnpm depending on which one you use
+      - name: Build Tauri
+        id: tauri_build
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          releaseId: ${{ needs.create-release.outputs.release_id }}
+  build-pwa:
+    needs: create-release
+    name: Fazer o Build do Aplicativo em PWA (Progressive Web App)
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Instalação de Quasar e repositórios
+        run: |
+          npm i -g @quasar/cli
+          npm i
+      - name: Criar env
+        env:
+          ENV: ${{ secrets.ENV }}
+        run: echo "$ENV" > ./.env
+      - name: Build do Aplicativo
+        run: quasar build -m pwa --modern
+      - name: Deploy para o Netlify
+        uses: nwtgck/actions-netlify@v2.0.0
+        with:
+          publish-dir: './dist/pwa'
+          production-branch: dev
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: ${{ github.event.pull_request.title }}
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+  publish-release:
+    name: Publicação de Release
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs: [create-release, build-tauri, build-pwa]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: publish release
+        id: publish-release
+        uses: actions/github-script@v6
+        env:
+          release_id: ${{ needs.create-release.outputs.release_id }}
+          version: ${{ needs.create-release.outputs.version }}
+        with:
+          script: |
+            github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `v${{ needs.create-release.outputs.version }}`,
+              release_id: process.env.release_id,
+            })
