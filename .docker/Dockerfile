@@ -26,7 +26,7 @@ RUN mv * ../../../
 WORKDIR /app
 RUN rm -r -f source
 RUN npm i
-CMD ["pm2-runtime", "dist/ssr/index.js"]
+CMD ["pm2-runtime", "index.js"]
 
 # dev stage
 # FROM local-deps-stage as dev-stage
