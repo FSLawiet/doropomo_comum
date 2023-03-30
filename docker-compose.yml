@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  quasar_webapp:
+    restart: always
+    container_name: quasar_webapp
+    build:
+      context: ./webapp
+      target: 'build-stage'
+      dockerfile: ./Dockerfile
+    volumes:
+      - webapp:/app
+    networks:
+      - internal_network
+    ports:
+      - '23123:3000'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.couchdb_master.loadbalancer.server.port=3000'
+      - 'traefik.http.routers.couchdb_master.rule=Host(`app.localhost`)'
+      - 'traefik.http.routers.couchdb_master.entrypoints=web'
+      - 'traefik.docker.network=internal_network'
+
+  traefik_proxy:
+    container_name: traefik_proxy
+    image: traefik:latest
+    command:
+      - '--api.insecure=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+    networks:
+      - internal_network
+      - external_network
+    ports:
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  webapp:
+
+networks:
+  internal_network:
+    internal: true
+  external_network:
+    external: true
