@@ -5,9 +5,9 @@ services:
     restart: always
     container_name: quasar_webapp
     build:
-      context: ./webapp
-      target: 'build-stage'
-      dockerfile: ./Dockerfile
+      context: ./
+      target: 'prod-stage'
+      dockerfile: .docker/Dockerfile
     volumes:
       - webapp:/app
     networks:
